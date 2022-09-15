@@ -28,6 +28,7 @@ export const InputPassword = ({ label, ...props }) => {
           setType('password')
         }
       }} 
+      
       alt="eye"/>    
     </div>
   )
