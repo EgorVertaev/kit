@@ -28,7 +28,7 @@ export const InputPassword = ({ label, ...props }) => {
           setType('password')
         }
       }} 
-      
+
       alt="eye"/>    
     </div>
   )
@@ -36,6 +36,7 @@ export const InputPassword = ({ label, ...props }) => {
 
 export const InputEmail = ({ label, ...props }) => {
 
+  
   return (
     <div>
       <label className="input__lebel">{label}</label>
