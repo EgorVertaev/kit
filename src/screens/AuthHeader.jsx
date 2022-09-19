@@ -1,6 +1,6 @@
 import React from "react";
-import './Header.css'
-export const Header = ({ title, description, ...props}) => {
+import './AuthHeader.css'
+export const AuthHeader = ({ title, description, ...props}) => {
 
   return (
     <div className="header">

@@ -1,25 +1,25 @@
 import React from "react";
-import { Header } from "../Header/Header";
-import { InputEmail } from "../commons/inputs";
-import { Button } from "../commons/buttons";
-import { Footer } from "../Footer/Footer";
+import { AuthHeader } from "../AuthHeader";
+import { AuthFooter } from "../AuthFooter";
+import { InputText } from "../../components/inputs";
+import { Button } from "../../components/buttons";
 import './ForgotPass.css'
 
 export const ForgotPass = () => {
 
   return (
     <div className="forgot-pass">
-      <Header 
+      <AuthHeader 
       title={'Forgot password?'}
       description={'Enter your email from registered account'}
       />
       <form className="forgot-pass__form">
-        <InputEmail label={'email'}/>
+        <InputText label={'email'} type={"emeil"}/>
         <div className="forgot-pass__btn">
           <Button body={"Send"}/>
         </div>
       </form>
-      <Footer />
+      <AuthFooter />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './inputs.css'
-import eye from './../../assets/eye.svg'
-import eyeHide from './../../assets/eyeHide.svg'
+import eye from '../assets/eye.svg'
+import eyeHide from '../assets/eyeHide.svg'
 
 
 export const InputPassword = ({ label, ...props }) => {
@@ -34,22 +34,7 @@ export const InputPassword = ({ label, ...props }) => {
   )
 }
 
-export const InputEmail = ({ label, ...props }) => {
-
-  
-  return (
-    <div>
-      <label className="input__lebel">{label}</label>
-        <input 
-          className="input__text" 
-          name="email" 
-          type="email" 
-          placeholder="Email address"/>
-    </div>
-  )
-}
-
-export const InputText = ({ label, name, ...props }) => {
+export const InputText = ({ label, name, type, ...props }) => {
 
   return (
     <div>
@@ -57,7 +42,7 @@ export const InputText = ({ label, name, ...props }) => {
         <input 
           className="input__text" 
           name={name} 
-          type="text" 
+          type={type} 
           placeholder="Email address"/>
     </div>
   )

@@ -1,15 +1,15 @@
 import React from "react";
-import { Header } from "../Header/Header";
-import { InputPassword } from "../commons/inputs";
-import { Button } from "../commons/buttons";
-import { Footer } from "../Footer/Footer";
+import { AuthHeader } from "../AuthHeader";
+import { AuthFooter } from "../AuthFooter";
+import { InputPassword } from "../../components/inputs";
+import { Button } from "../../components/buttons";
 import './ResetPass.css'
 
 export const ResetPass = () => {
 
   return (
     <div className="reset-pass">
-      <Header 
+      <AuthHeader 
       title={'Reset Password'}
       description={'Enter new password'}
       />
@@ -20,7 +20,7 @@ export const ResetPass = () => {
           <Button body={"Send"}/>
         </div> 
       </form>
-      <Footer />
+      <AuthFooter />
     </div>
   )
 }

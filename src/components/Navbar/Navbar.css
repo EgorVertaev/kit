@@ -1,0 +1,11 @@
+.navbar__item {
+  margin-bottom: 15px;
+}
+
+.navbar__link {
+  color: #fff;
+}
+
+.navbar__link--active {
+  color: red
+}
