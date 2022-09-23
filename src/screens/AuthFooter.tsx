@@ -1,6 +1,10 @@
 import React from "react";
 import './AuthFooter.css'
-export const AuthFooter = (props) => {
+
+
+
+
+export const AuthFooter = () => {
 
   return (
     <div className="footer">

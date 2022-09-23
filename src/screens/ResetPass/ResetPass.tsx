@@ -1,8 +1,8 @@
 import React from "react";
 import { AuthHeader } from "../AuthHeader";
 import { AuthFooter } from "../AuthFooter";
-import { InputPassword } from "../../components/inputs";
-import { Button } from "../../components/buttons";
+import { InputPassword } from "../../components/inputs/inputs";
+import { Button } from "../../components/buttons/buttons";
 import './ResetPass.css'
 
 export const ResetPass = () => {

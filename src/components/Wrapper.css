@@ -1,4 +1,12 @@
 .wrapper {
+  background-color: #363740;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper__inner {
   background-color: #fff;
   padding: 40px 32px;
   max-width: 380px;

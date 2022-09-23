@@ -1,12 +1,21 @@
-import React, {useState} from "react";
+import React, {useState, FC} from "react";
 import './inputs.css'
-import eye from '../assets/eye.svg'
-import eyeHide from '../assets/eyeHide.svg'
+import {Eye, EyeHide} from "../../icons/icon"
+// import eyeHide from '../assets/eyeHide.svg'
 
+interface IInputPasswordProps {
+  label: string
+}
 
-export const InputPassword = ({ label, ...props }) => {
+interface IinputTextProps {
+  label: string
+  name: string
+  type: string
+}
+
+export const InputPassword: FC<IInputPasswordProps> = ({ label }) => {
   const [type, setType] = useState('password')
-  const [icon, setIcon] = useState(eyeHide)
+  const [icon, setIcon] = useState(false)
 
   return (
     <div className="input">
@@ -16,25 +25,22 @@ export const InputPassword = ({ label, ...props }) => {
           type={type} 
           name="password" 
           placeholder="Password"/>
-      <img 
-      className="input__eye" 
-      src={icon} 
-      onClick={() => {
+      <div className="input__eye"  onClick={() => {
         if(type === "password") {
-          setIcon(eye)
+          setIcon(true)
           setType('text')
         } else {
-          setIcon(eyeHide)
+          setIcon(false)
           setType('password')
         }
-      }} 
-
-      alt="eye"/>    
+      }} >
+        {icon ? <Eye /> : <EyeHide />}  
+      </div> 
     </div>
   )
 }
 
-export const InputText = ({ label, name, type, ...props }) => {
+export const InputText: FC<IinputTextProps> = ({ label, name, type }) => {
 
   return (
     <div>

@@ -1,6 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import './AuthHeader.css'
-export const AuthHeader = ({ title, description, ...props}) => {
+
+interface IAuthFooterProps {
+  title: string
+  description: string
+}
+
+export const AuthHeader: FC<IAuthFooterProps> = ({ title, description }) => {
 
   return (
     <div className="header">
