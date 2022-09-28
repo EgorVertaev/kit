@@ -1,9 +1,9 @@
 import React from "react";
-import { AuthHeader } from "../AuthHeader";
-import { AuthFooter } from "../AuthFooter";
-import { InputText } from "../../components/inputs/inputs";
-import { Button } from "../../components/buttons/buttons";
-import './ForgotPass.css'
+import './ForgotPass.scss'
+import { AuthHeader } from "../../components/AuthHeader/AuthHeader";
+import { AuthFooter } from "../../components/AuthFooter/AuthFooter";
+import { InputText } from "../../components/Inputs/InputText/InputText";
+import { Button } from "../../components/Buttons/buttons";
 
 export const ForgotPass = () => {
 

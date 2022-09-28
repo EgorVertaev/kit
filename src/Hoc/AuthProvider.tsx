@@ -10,6 +10,13 @@ const authContext: IAuthContext = {
   isAuth: true
 }
 
+const userData = {
+  login: 'admin',
+  password: 'admin'
+}
+
+localStorage.setItem('user', JSON.stringify(userData))
+
 export const AuthContext = createContext<IAuthContext | null>(null)
 
 export const AuthProvider: FC<IChildrenProps> = ({children}) => {

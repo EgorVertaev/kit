@@ -1,8 +1,9 @@
 import React from "react";
-import './SignUp.css'
-import { AuthHeader } from "../AuthHeader";
-import { InputPassword, InputText } from "../../components/inputs/inputs";
-import { Button } from "../../components/buttons/buttons";
+import './SignUp.scss'
+import { AuthHeader } from "../../components/AuthHeader/AuthHeader";
+import { InputPassword } from "../../components/Inputs/InputPassword/InputPassword";
+import {InputText } from '../../components/Inputs/InputText/InputText'
+import { Button } from "../../components/Buttons/buttons";
 
 
 export const SignUp = () => {

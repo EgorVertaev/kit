@@ -1,0 +1,25 @@
+.more {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 15px;
+  cursor: pointer;
+
+  &__span {
+    width: 4px;
+    height: 4px;
+    background-color: #C5C7CD;
+    border-radius: 50%;
+
+    &:not(:last-child) {
+      margin-bottom: 2px;
+    }
+  }
+
+  &__modal-btn {
+    padding: 10px 20px;
+
+    &:hover {
+      background-color: #C5C7CD;
+    }
+  }
+}

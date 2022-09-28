@@ -1,9 +1,8 @@
 import React, { FC } from "react";
+import "./Navbar.scss";
 import { NavLink } from "react-router-dom";
-import { LogoIcon, OverviewIcon, TicketsIcon, ContactIcon, SettingIcon } from "../../icons/icon";
-
-import "./Navbar.css";
-
+import { CONTACTS, OVERVIEW, SETTINGS, TICKETS } from "../../routes/Routes";
+import { LogoIcon, OverviewIcon, TicketsIcon, ContactIcon, SettingIcon } from "../Icons/Icon";
 
 
 export const Navbar: FC = () => {
@@ -23,7 +22,7 @@ export const Navbar: FC = () => {
 
       <ul className="navbar__list">
         <li className="navbar__item">
-          <NavLink className={isActive} to={"/overview"}>
+          <NavLink className={isActive} to={OVERVIEW}>
             <div className="navbar__flex">
               <div className="navbar__icon">
                 <OverviewIcon />
@@ -33,7 +32,7 @@ export const Navbar: FC = () => {
           </NavLink>
         </li>
         <li className="navbar__item">
-          <NavLink className={isActive} to={"/tikets"}>
+          <NavLink className={isActive} to={TICKETS}>
             <div className="navbar__flex">
               <div className="navbar__icon">
                 <TicketsIcon />
@@ -43,7 +42,7 @@ export const Navbar: FC = () => {
           </NavLink>
         </li>
         <li className="navbar__item">
-          <NavLink className={isActive} to={"/contacts"}>
+          <NavLink className={isActive} to={CONTACTS}>
             <div className="navbar__flex">
               <div className="navbar__icon">
                 <ContactIcon />
@@ -77,7 +76,7 @@ export const Navbar: FC = () => {
 
       <ul className="navbar__list navbar__list--down">
         <li className="navbar__item">
-          <NavLink className={isActive} to={"/settings"}>
+          <NavLink className={isActive} to={SETTINGS}>
             <div className="navbar__flex">
               <div className="navbar__icon">
                 <SettingIcon/>

@@ -1,0 +1,14 @@
+@import '~antd/dist/antd.css';
+
+.app {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+.main {
+  background-color: #F7F8FC;
+  width: 100vw;
+  height: 100vh;
+  padding: 30px;
+}

@@ -1,10 +1,10 @@
 import React from "react";
-import './Login.css'
-import { InputPassword, InputText } from "../../components/inputs/inputs";
-import  { Button }  from "../../components/buttons/buttons";
-import { AuthHeader } from "../AuthHeader";
-import { AuthFooter } from "../AuthFooter";
-// import  Wrapper  from "../../components/Wrapper"
+import './Login.scss'
+import { InputText } from "../../components/Inputs/InputText/InputText";
+import { InputPassword } from "../../components/Inputs/InputPassword/InputPassword";
+import  { Button }  from "../../components/Buttons/buttons";
+import { AuthHeader } from "../../components/AuthHeader/AuthHeader";
+import { AuthFooter } from "../../components/AuthFooter/AuthFooter";
  
 
 export const Login = () => {

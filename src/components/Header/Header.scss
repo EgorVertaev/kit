@@ -1,0 +1,25 @@
+.component-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 54px;
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__photo {
+    border-radius: 50%;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+  }
+
+  &__name {
+    margin-right: 16px;
+  }
+  
+}

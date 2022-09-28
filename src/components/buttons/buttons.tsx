@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import './buttons.css'
+import './buttons.scss'
 
 
 interface IButtonProps {
@@ -9,6 +9,9 @@ interface IButtonProps {
 export const Button: FC<IButtonProps> = ({ body }) => {
   
   return (
-    <button className="btn">{body}</button>  
+    <button 
+    className="btn" 
+    >
+      {body}</button>  
   )
 }

@@ -1,0 +1,10 @@
+.ant-table-thead > tr > th {
+  background: transparent;
+  font-weight: 700;
+  color: #9FA2B4;
+  padding-bottom: 12px;
+}
+
+.ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+  width: 0;
+}

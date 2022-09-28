@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { UserState } from '../../hook/userState'
-import './Header.css'
+import { UserState } from '../../hooks/userState'
+import './Header.scss'
 
 interface IHeaderProps {
   title: string

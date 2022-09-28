@@ -1,0 +1,26 @@
+.input {
+  position: relative;
+
+  &__lebel {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #9FA2B4;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    margin-bottom: 24px;
+    width: 100%;
+    background-color: #FCFDFE;
+    border: 1px solid #9FA2B4;
+    border-radius: 8px;
+    padding: 10px 16px;
+    outline: none;
+  }
+
+  &__text::placeholder {
+    color: #4B506D
+  }
+}
