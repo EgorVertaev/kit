@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./More.scss";
+import "./ContactMore.scss";
 import { Modal } from "antd";
 import { IContactsData } from "../../../../../types/types";
 
@@ -8,8 +8,10 @@ interface IMoreProps {
   record: IContactsData;
 }
 
-export const More = ({ deleteContact, record }: IMoreProps) => {
+export const ContactMore = ({ deleteContact, record }: IMoreProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const modalContainer = document.querySelector('.inner') as HTMLElement
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -24,7 +26,7 @@ export const More = ({ deleteContact, record }: IMoreProps) => {
   };
 
   return (
-    <>
+    <div className="inner">
       <div className="more" onClick={showModal}>
         <span className="more__span"></span>
         <span className="more__span"></span>
@@ -36,6 +38,11 @@ export const More = ({ deleteContact, record }: IMoreProps) => {
         onCancel={handleCancel}
         footer={null}
         closable={false}
+        getContainer={modalContainer}
+        width={200}
+        className={'more-modal'}
+        wrapClassName={'more-modal-wrap'}
+        mask={false}
       >
         <p className="more__modal-btn"
           onClick={() => {
@@ -46,6 +53,6 @@ export const More = ({ deleteContact, record }: IMoreProps) => {
           Delete
         </p>
       </Modal>
-    </>
+    </div>
   );
 };

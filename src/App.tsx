@@ -13,7 +13,7 @@ import { ResetPass } from './screens/ResetPass/ResetPass';
 import { SignUp } from './screens/SignUp/SignUp';
 import { AuthProvider } from './hoc/AuthProvider';
 import { CONTACTS, FORGOT_PASSWORD, LOGIN, OVERVIEW, RESET_PASSWORD, SETTINGS, SIGN_UP, TICKETS } from './routes/Routes';
-import { TicketsConteiner } from './screens/Tickets/TicketsConteiner';
+import { Tickets } from './screens/Tickets/Tickets';
 
 
 
@@ -34,7 +34,7 @@ function App() {
             <Route path={TICKETS} element={
               <RequireAuth>
                 <UserProvider>
-                    <TicketsConteiner/>
+                    <Tickets/>
                 </UserProvider>
               </RequireAuth>
             }/>

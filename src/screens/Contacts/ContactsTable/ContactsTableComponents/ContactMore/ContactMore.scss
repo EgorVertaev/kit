@@ -17,9 +17,28 @@
 
   &__modal-btn {
     padding: 10px 20px;
-
+    cursor: pointer;
     &:hover {
       background-color: #C5C7CD;
     }
+  }
+}
+
+.more-modal {
+  top: 0;
+}
+
+.more-modal-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: auto;
+  overflow: visible;
+}
+
+.inner {
+  .ant-modal-body {
+    padding: 0;
   }
 }

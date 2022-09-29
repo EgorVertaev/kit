@@ -15,6 +15,25 @@
   &__btn-add {
     color: #3751FF;
   }
+
+  &__inner {
+    color:  #4B506D;
+    font-weight: 600;
+    display: flex;
+  }
+
+  &__btn-icon {
+    margin-right: 10px;
+  }
+
+  &__btn-sort,
+  &__btn-filter {
+    display: flex;
+  }
+
+  &__btn-sort {
+    margin-right: 20px;
+  }
 }
 
 .ant-modal-header {

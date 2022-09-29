@@ -4,7 +4,7 @@ import React from "react";
 import { IContactsData, IPaginationUseState } from "../../../types/types";
 import "./ContactsTable.scss";
 import { pageSizeOptions } from "../../../constants/constans";
-import { More } from "./ContactsTableComponents/More/More";
+import { ContactMore } from "./ContactsTableComponents/ContactMore/ContactMore";
 import { NameColumn } from "./ContactsTableComponents/NameColomn/NameColumn";
 
 interface IContactsTableData {
@@ -62,7 +62,7 @@ const ContactsTable: React.FC<IContactsTableData> = ({
       key: "action",
       render: (_, record) => (
         <>
-          <More deleteContact={deleteContact} record={record} />
+          <ContactMore deleteContact={deleteContact} record={record} />
         </>
       ),
     },

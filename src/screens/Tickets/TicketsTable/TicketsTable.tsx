@@ -1,4 +1,4 @@
-import { Space, Table } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React from "react";
 import { ITicketsData } from "../../../types/types";
@@ -6,16 +6,18 @@ import { CastomerName } from "./TicketsTableComponent/CastomerName/CastomerName"
 import { TicketDate } from "./TicketsTableComponent/TicketDate/TicketDate";
 import { TicketDetails } from "./TicketsTableComponent/TicketDetails/TicketDetails";
 import { TicketLabel } from "./TicketsTableComponent/TicketLabel/TicketLabel";
+import { TicketMore } from "./TicketsTableComponent/TicketMore/TicketMore";
 
 
 interface ITicketsTableProps {
-  ticketData: ITicketsData[]
+  ticketData: ITicketsData[];
+  deleteTicket: (id: string) => void;
 }
-export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData }) => {
+
+export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData, deleteTicket }) => {
   const columns: ColumnsType<ITicketsData> = [
     {
       title: "Ticket details",
-      dataIndex: "",
       key: "name",
       render: ({ image, description, descData }) => (
         <TicketDetails
@@ -25,16 +27,17 @@ export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData }) => {
         />
       ),
     },
-    {
+    { 
       title: "Customer name",
-      dataIndex: "",
+      width: "300px",
       key: "age",
       render: ({ name, nameData }) => (
         <CastomerName name={name} nameData={nameData} />
       ),
     },
-    {
+    { 
       title: "Date",
+      width: "250px",
       render: ({ date, dateTime }) => (
         <TicketDate date={date} dateTime={dateTime} />
       ),
@@ -42,7 +45,7 @@ export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData }) => {
     {
       title: "Prioriry",
       key: "tag",
-      dataIndex: "priority",
+      width: "200px",
       render: (_, { priority }) => {
           let color = "";
           if(priority === 'low') {
@@ -54,19 +57,15 @@ export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData }) => {
           if(priority === 'normal') {
             color = "#29CC97"
           }
-
         return (
           <TicketLabel priority={priority} color={color}/>
         )
       },
     },
-    {
-      title: "",
-      key: "action",
+    { 
+      width: "50px",
       render: (_, record) => (
-        <Space size="middle">
-          <span>Delete</span>
-        </Space>
+        <TicketMore record={record} deleteTicket={deleteTicket}/>
       ),
     },
   ];

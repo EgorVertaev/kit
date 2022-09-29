@@ -5,6 +5,7 @@ import { Modal } from "antd"
 import { contactsData } from "./moaks"
 import { ContactModal } from "../../components/Modals/ContactModal/ContactModal"
 import { IPaginationUseState } from '../../types/types'
+import { FilterIcon, SortIcon } from "../../components/Icons/Icon"
 
 
 
@@ -40,7 +41,13 @@ export const Contacts = () => {
 
   const deleteContact = (id: string) => {
     const newData = data.filter(el => el.id !== id)  
-    setData((data) => newData )
+    setData(() => newData )
+  }
+
+  const sortedData = () => {
+    let newSortData = [...data]
+    let sort = newSortData.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
+    setData(sort)
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,17 +66,31 @@ export const Contacts = () => {
 
   return (
     <>
-     <div className="contacts">
-      <div className="contacts__header">
-        <div className="contacts__inner">
-          <button className="contacts__btn-filter">Filter</button>
-          <button className="contacts__btn-sort">Sort</button>
+      <div className="contacts">
+        <div className="contacts__header">
+          <div className="contacts__inner">
+            <button className="contacts__btn-sort" onClick={() => sortedData()}>
+              <div className="contacts__btn-icon">
+                <SortIcon/>
+              </div>
+              <span className="contacts__btn-body">
+              Sort
+              </span>
+            </button>
+            <button className="contacts__btn-filter">
+              <div className="contacts__btn-icon">
+                <FilterIcon/> 
+              </div>
+              <span className="contacts__btn-body">
+                Filter
+              </span>
+            </button>
+          </div>
+          <button className="contacts__btn-add" onClick={showModal}>+ Add contacts</button>
         </div>
-        <button className="contacts__btn-add" onClick={showModal}>+ Add contacts</button>
+        <ContactsTable data={data} pagination={pagination} setPagination={setPagination} deleteContact={deleteContact}/>
       </div>
-     
-      <ContactsTable data={data} pagination={pagination} setPagination={setPagination} deleteContact={deleteContact}/>
-      </div>
+
       <Modal 
         title="Add new contact"
         open={isModalOpen}
