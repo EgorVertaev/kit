@@ -3,5 +3,16 @@
   padding: 36px 32px;
   border: 1px solid #DFE0EB;
   border-radius: 8px;
-  height: 80vh;
+  height: 85vh;
+  overflow-y: scroll;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 36px;
+  }
+
+  &__btn-add {
+    color: #3751FF;
+  }
 }

@@ -17,7 +17,6 @@ export const Contacts = () => {
   })
 
   const [data, setData] = useState(contactsData)
-  console.log(data)
 
   const setNewContact = (
     firstNameValue: string,
@@ -41,7 +40,7 @@ export const Contacts = () => {
 
   const deleteContact = (id: string) => {
     const newData = data.filter(el => el.id !== id)  
-    setData( (data) => newData )
+    setData((data) => newData )
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);

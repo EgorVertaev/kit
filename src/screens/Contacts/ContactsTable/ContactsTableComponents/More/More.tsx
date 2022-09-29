@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./More.scss";
 import { Modal } from "antd";
-import { IContactsData } from "../../../../types/types";
+import { IContactsData } from "../../../../../types/types";
 
 interface IMoreProps {
   deleteContact: (id: string) => void;

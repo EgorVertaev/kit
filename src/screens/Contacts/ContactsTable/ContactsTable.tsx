@@ -4,7 +4,8 @@ import React from "react";
 import { IContactsData, IPaginationUseState } from "../../../types/types";
 import "./ContactsTable.scss";
 import { pageSizeOptions } from "../../../constants/constans";
-import { More } from "./More/More";
+import { More } from "./ContactsTableComponents/More/More";
+import { NameColumn } from "./ContactsTableComponents/NameColomn/NameColumn";
 
 interface IContactsTableData {
   data: IContactsData[];
@@ -19,29 +20,23 @@ const ContactsTable: React.FC<IContactsTableData> = ({
   setPagination,
   deleteContact,
 }) => {
+
   const columns: ColumnsType<IContactsData> = [
     {
       title: "Name",
-      dataIndex: "image",
-      key: "image",
-      render: (image) => (
-        <img
-          src={image}
-          alt="user-profile-img"
-          width={44}
-          height={44}
-          style={{ borderRadius: "50%" }}
-        />
+      width: "400px",
+      render: (record) => (
+        <>
+          <NameColumn record={record}/>
+        </>
       ),
-    },
-    {
-      title: "",
-      dataIndex: "name",
-      key: "name",
+      
+      sorter: (a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1
     },
     {
       title: "Email",
       dataIndex: "email",
+      width: "250px",
       key: "email",
     },
     {
@@ -53,9 +48,17 @@ const ContactsTable: React.FC<IContactsTableData> = ({
       title: "Created at",
       dataIndex: "createData",
       key: "createData",
+      filters: [
+        {
+          text: 'May 25, 2019',
+          value: 'May 25, 2019'
+        }
+      ],
+      onFilter: (value: any, record) => record.createData.includes(value),
     },
     {
       title: "",
+      width: "50px",
       key: "action",
       render: (_, record) => (
         <>

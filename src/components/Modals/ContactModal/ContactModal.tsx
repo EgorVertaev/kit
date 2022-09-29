@@ -24,7 +24,7 @@ export const ContactModal = ({
   const [adressValue, setAdressValue] = useState<string>("");
 
   return (
-    <div>
+    <>
       <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
         <label className="contact-form__label"> first name</label>
         <input
@@ -84,6 +84,6 @@ export const ContactModal = ({
           <Button body={"Cancel"} />
         </div>
       </form>
-    </div>
+    </>
   );
 };

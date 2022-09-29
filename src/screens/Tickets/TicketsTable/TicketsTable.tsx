@@ -1,91 +1,74 @@
-import { Space, Table, Tag } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import React from 'react';
+import { Space, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import React from "react";
+import { ITicketsData } from "../../../types/types";
+import { CastomerName } from "./TicketsTableComponent/CastomerName/CastomerName";
+import { TicketDate } from "./TicketsTableComponent/TicketDate/TicketDate";
+import { TicketDetails } from "./TicketsTableComponent/TicketDetails/TicketDetails";
+import { TicketLabel } from "./TicketsTableComponent/TicketLabel/TicketLabel";
 
-interface DataType {
-  key: string;
-  descript: string
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+
+interface ITicketsTableProps {
+  ticketData: ITicketsData[]
 }
-
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    descript: 'Contact Email not Linked',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-
-  // {
-  //   key: '2',
-  //   name: 'Jim Green',
-  //   age: 42,
-  //   address: 'London No. 1 Lake Park',
-  //   tags: ['loser'],
-  // },
-  // {
-  //   key: '3',
-  //   name: 'Joe Black',
-  //   age: 32,
-  //   address: 'Sidney No. 1 Lake Park',
-  //   tags: ['cool', 'teacher'],
-  // },
-];
-
-const columns: ColumnsType<DataType> = [
-  {
-    title: 'Ticket details',
-    dataIndex: 'details',
-    key: 'name',
-    render: text => <a>{text}</a>,
-  },
-  {
-    title: 'Customer name',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Date',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Prioriry',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
+export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData }) => {
+  const columns: ColumnsType<ITicketsData> = [
+    {
+      title: "Ticket details",
+      dataIndex: "",
+      key: "name",
+      render: ({ image, description, descData }) => (
+        <TicketDetails
+          image={image}
+          description={description}
+          descData={descData}
+        />
+      ),
+    },
+    {
+      title: "Customer name",
+      dataIndex: "",
+      key: "age",
+      render: ({ name, nameData }) => (
+        <CastomerName name={name} nameData={nameData} />
+      ),
+    },
+    {
+      title: "Date",
+      render: ({ date, dateTime }) => (
+        <TicketDate date={date} dateTime={dateTime} />
+      ),
+    },
+    {
+      title: "Prioriry",
+      key: "tag",
+      dataIndex: "priority",
+      render: (_, { priority }) => {
+          let color = "";
+          if(priority === 'low') {
+            color = "#FEC400"
+          } 
+          if(priority === 'high') {
+            color = "#F12B2C"
           }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: '',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
+          if(priority === 'normal') {
+            color = "#29CC97"
+          }
 
-
-
-export const TicketsTable: React.FC = () => <Table columns={columns} dataSource={data} />;
+        return (
+          <TicketLabel priority={priority} color={color}/>
+        )
+      },
+    },
+    {
+      title: "",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <span>Delete</span>
+        </Space>
+      ),
+    },
+  ];
+  return <Table columns={columns} dataSource={ticketData} />;
+};

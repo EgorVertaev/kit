@@ -23,7 +23,7 @@ function App() {
     <div className="app">
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Layout/>}>
+          <Route path='/' element={<Layout/>}>
             <Route path={OVERVIEW} element={
               <RequireAuth>
                 <UserProvider>
