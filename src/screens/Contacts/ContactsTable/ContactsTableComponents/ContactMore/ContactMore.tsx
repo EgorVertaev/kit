@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./ContactMore.scss";
-import { Modal } from "antd";
+import { Dropdown, Menu} from 'antd';
 import { IContactsData } from "../../../../../types/types";
 
 interface IMoreProps {
@@ -8,51 +8,40 @@ interface IMoreProps {
   record: IContactsData;
 }
 
+
+
+
+
 export const ContactMore = ({ deleteContact, record }: IMoreProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const modalContainer = document.querySelector('.inner') as HTMLElement
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  
+  const menu = (
+    <Menu
+      selectable
+      defaultSelectedKeys={['3']}
+      items={[
+        {
+          key: '1',
+          label: (
+            <p className="more__modal-btn"
+            onClick={() => {
+              deleteContact(record.id);
+            }}
+          >
+            Delete
+          </p>
+          ),
+        }
+      ]}
+    />
+  );
 
   return (
-    <div className="inner">
-      <div className="more" onClick={showModal}>
+    <Dropdown overlay={menu} trigger={["click"]}>
+      <div className="more">
         <span className="more__span"></span>
         <span className="more__span"></span>
         <span className="more__span"></span>
       </div>
-      <Modal
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        closable={false}
-        getContainer={modalContainer}
-        width={200}
-        className={'more-modal'}
-        wrapClassName={'more-modal-wrap'}
-        mask={false}
-      >
-        <p className="more__modal-btn"
-          onClick={() => {
-            deleteContact(record.id);
-            handleCancel();
-          }}
-        >
-          Delete
-        </p>
-      </Modal>
-    </div>
+    </Dropdown>
   );
 };

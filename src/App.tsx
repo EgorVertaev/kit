@@ -1,7 +1,7 @@
 import './App.scss';
 import { Layout } from './routes/Layout';
 import { Routes, Route} from 'react-router-dom'
-import { ContactsContainer } from './screens/Contacts/ContactsContainer';
+import { Contacts } from './screens/Contacts/Contacts';
 import { Overview } from './screens/Overview/Overview';
 import { SettingsContainer } from './screens/Settings/SettingsContainer';
 import Wrapper from './components/Wrapper/Wrapper';
@@ -41,7 +41,7 @@ function App() {
             <Route path={CONTACTS} element={
             <RequireAuth>
               <UserProvider>
-                <ContactsContainer/>
+                <Contacts/>
               </UserProvider>
             </RequireAuth>
             }/>

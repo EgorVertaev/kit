@@ -30,8 +30,6 @@ const ContactsTable: React.FC<IContactsTableData> = ({
           <NameColumn record={record}/>
         </>
       ),
-      
-      sorter: (a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1
     },
     {
       title: "Email",
@@ -48,13 +46,6 @@ const ContactsTable: React.FC<IContactsTableData> = ({
       title: "Created at",
       dataIndex: "createData",
       key: "createData",
-      filters: [
-        {
-          text: 'May 25, 2019',
-          value: 'May 25, 2019'
-        }
-      ],
-      onFilter: (value: any, record) => record.createData.includes(value),
     },
     {
       title: "",

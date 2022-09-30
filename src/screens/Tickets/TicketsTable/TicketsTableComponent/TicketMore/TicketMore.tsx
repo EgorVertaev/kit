@@ -1,53 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import "./TicketMore.scss";
-import { Modal } from "antd";
 import { ITicketsData } from "../../../../../types/types";
-
+import { Dropdown, Menu} from 'antd';
 interface ITicketMoreProps {
   deleteTicket: (id: string) => void;
   record: ITicketsData;
 }
 
 export const TicketMore = ({ deleteTicket, record }: ITicketMoreProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <p className="more__modal-btn"
+            onClick={() => {
+              deleteTicket(record.id);
+            }}
+          >
+            Delete
+          </p>
+          ),
+        }
+      ]}
+    />
+  );
 
   return (
-    <>
-      <div className="more" onClick={showModal}>
+    <Dropdown overlay={menu} trigger={["click"]}>
+      <div className="more">
         <span className="more__span"></span>
         <span className="more__span"></span>
         <span className="more__span"></span>
       </div>
-      
-      <Modal
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        closable={false}
-        width={200}
-      >
-        <p className="more__modal-btn"
-          onClick={() => {
-            deleteTicket(record.id);
-            handleCancel();
-          }}
-        >
-          Delete
-        </p>
-      </Modal>
-    </>
+    </Dropdown>
   );
 };

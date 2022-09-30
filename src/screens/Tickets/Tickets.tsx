@@ -6,9 +6,11 @@ import { TicketModal } from "../../components/Modals/TicketModal/TicketModal";
 import { ticketData } from "./ticketmoaks";
 import { FilterIcon, SortIcon } from "../../components/Icons/Icon";
 import { Header } from "../../components/Header/Header";
+import { Dropdown, Menu } from "antd";
 
 export const Tickets = () => {
   const [data, setTicketData] = useState(ticketData);
+
   console.log(data);
   const setNewTicket = (
     castomerName: string,
@@ -30,12 +32,13 @@ export const Tickets = () => {
       dateTime: `${date.getDay()}`,
       priority: priorityValue,
     };
+    setIsSorted(false);
     setTicketData((data) => [...data, newData]);
   };
 
   const deleteTicket = (id: string) => {
     const newData = data.filter((el) => el.id !== id);
-    setTicketData((data) => newData);
+    setTicketData(newData);
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,6 +55,88 @@ export const Tickets = () => {
     setIsModalOpen(false);
   };
 
+  // Sort
+  const [isSorted, setIsSorted] = useState(false);
+
+  const sortedData = () => {
+    if (isSorted === false) {
+      const newSortData = [...data];
+      const sort = newSortData.sort((a, b) =>
+        a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+      );
+      setIsSorted(true);
+      setTicketData(sort);
+    }
+
+    if (isSorted === true) {
+      const newSortData = [...data];
+      const sort = newSortData.sort((a, b) =>
+        a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1
+      );
+      setIsSorted(false);
+      setTicketData(sort);
+    }
+  };
+
+  // Filter
+  const [isFilter, setIsFilter] = useState(false);
+
+  const filterPriority = (priority: string) => {
+    const newFilterData = [...data];
+    const filteredData = newFilterData.filter(
+      (item) => item.priority === priority
+    );
+    setTicketData(filteredData);
+  };
+
+  // Dropdown
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: "1",
+          label: (
+            <button
+              onClick={() => {
+                filterPriority("low");
+                setIsFilter(true);
+              }}
+            >
+              Low
+            </button>
+          ),
+        },
+        {
+          key: "2",
+          label: (
+            <button
+              onClick={() => {
+                filterPriority("normal");
+                setIsFilter(true);
+              }}
+            >
+              Normal
+            </button>
+          ),
+        },
+        {
+          key: "3",
+          label: (
+            <button
+              onClick={() => {
+                filterPriority("high");
+                setIsFilter(true);
+              }}
+            >
+              High
+            </button>
+          ),
+        },
+      ]}
+    />
+  );
+
   return (
     <>
       <Header title={"Tickets"} />
@@ -59,18 +144,38 @@ export const Tickets = () => {
       <div className="tickets">
         <div className="tickets__header">
           <div className="tickets__inner">
-            <button className="tickets__btn-sort">
+            <button className="tickets__btn-sort" onClick={() => sortedData()}>
               <div className="tickets__btn-icon">
-                <SortIcon />
+                {isSorted ? <SortIcon fill="#3751FF" /> : <SortIcon />}
               </div>
               <span className="tickets__btn-body">Sort</span>
             </button>
-            <button className="tickets__btn-filter">
-              <div className="tickets__btn-icon">
-                <FilterIcon />
-              </div>
-              <span className="tickets__btn-body">Filter</span>
-            </button>
+            <Dropdown
+              overlay={isFilter ? <span></span> : menu}
+              trigger={["click"]}
+            >
+              <button className="tickets__btn-filter">
+                <div className="tickets__btn-icon">
+                  {isFilter ? <FilterIcon fill="#3751FF" /> : <FilterIcon />}
+                </div>
+                <span className="tickets__btn-body">Filter</span>
+              </button>
+            </Dropdown>
+            {isFilter ? (
+              <button
+                onClick={() => {
+                  setIsFilter(false);
+                  setTicketData(ticketData);
+                }}
+                style={{
+                  backgroundColor: "#C5C7CD",
+                  padding: "2px 6px",
+                  borderRadius: "6px",
+                }}
+              >
+                clear filter X
+              </button>
+            ) : null}
           </div>
           <button className="tickets__btn-add" onClick={showModal}>
             + Add contacts
