@@ -12,7 +12,7 @@ import { Login } from './screens/Login/Login';
 import { ResetPass } from './screens/ResetPass/ResetPass';
 import { SignUp } from './screens/SignUp/SignUp';
 import { AuthProvider } from './hoc/AuthProvider';
-import { CONTACTS, FORGOT_PASSWORD, LOGIN, OVERVIEW, RESET_PASSWORD, SETTINGS, SIGN_UP, TICKETS } from './routes/Routes';
+import { ROUTES } from './routes/Routes';
 import { Tickets } from './screens/Tickets/Tickets';
 
 
@@ -24,28 +24,28 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Layout/>}>
-            <Route path={OVERVIEW} element={
+            <Route path={ROUTES.OVERVIEW} element={
               <RequireAuth>
                 <UserProvider>
                   <Overview/>
                 </UserProvider>
               </RequireAuth>
             }/>
-            <Route path={TICKETS} element={
+            <Route path={ROUTES.TICKETS} element={
               <RequireAuth>
                 <UserProvider>
-                    <Tickets/>
+                  <Tickets/>
                 </UserProvider>
               </RequireAuth>
             }/>
-            <Route path={CONTACTS} element={
+            <Route path={ROUTES.CONTACTS} element={
             <RequireAuth>
               <UserProvider>
                 <Contacts/>
               </UserProvider>
             </RequireAuth>
             }/>
-            <Route path={SETTINGS} element={
+            <Route path={ROUTES.SETTINGS} element={
               <RequireAuth>
                 <UserProvider>
                   <SettingsContainer/>
@@ -53,10 +53,10 @@ function App() {
               </RequireAuth>
             }/>
           </Route>
-          <Route path={LOGIN} element={<Wrapper component={<Login/>} />}/>
-          <Route path={FORGOT_PASSWORD} element={<Wrapper component={<ForgotPass />} />}/>
-          <Route path={RESET_PASSWORD} element={<Wrapper component={<ResetPass />} />}/>
-          <Route path={SIGN_UP} element={<Wrapper component={<SignUp />} />}/>
+          <Route path={ROUTES.LOGIN} element={<Wrapper component={<Login/>} />}/>
+          <Route path={ROUTES.FORGOT_PASSWORD} element={<Wrapper component={<ForgotPass />} />}/>
+          <Route path={ROUTES.RESET_PASSWORD} element={<Wrapper component={<ResetPass />} />}/>
+          <Route path={ROUTES.SIGN_UP} element={<Wrapper component={<SignUp />} />}/>
         </Routes>
       </AuthProvider>
     </div>

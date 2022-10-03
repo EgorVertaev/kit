@@ -1,8 +1,10 @@
-export const LOGIN = "login"
-export const FORGOT_PASSWORD = "forgotp  assword"
-export const RESET_PASSWORD = 'ressetpassword'
-export const SIGN_UP = 'signup'
-export const OVERVIEW = 'overview'
-export const TICKETS = 'tickets' 
-export const CONTACTS = 'contacts'
-export const SETTINGS = 'settings'
+export const ROUTES ={
+  LOGIN: "login",
+  FORGOT_PASSWORD: "forgotpassword",
+  RESET_PASSWORD: 'ressetpassword',
+  SIGN_UP: 'signup',
+  OVERVIEW: 'overview',
+  TICKETS: 'tickets', 
+  CONTACTS: 'contacts',
+  SETTINGS: 'settings',
+}

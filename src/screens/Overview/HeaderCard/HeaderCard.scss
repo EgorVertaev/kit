@@ -1,0 +1,11 @@
+.header-card {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 32px;
+  
+  &__value {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+  }
+}

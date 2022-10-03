@@ -7,6 +7,8 @@ import { ticketData } from "./ticketmoaks";
 import { FilterIcon, SortIcon } from "../../components/Icons/Icon";
 import { Header } from "../../components/Header/Header";
 import { Dropdown, Menu } from "antd";
+import { TICKET_PRIORITY_TYPE } from '../../constants/constans'
+
 
 export const Tickets = () => {
   const [data, setTicketData] = useState(ticketData);
@@ -32,7 +34,9 @@ export const Tickets = () => {
       dateTime: `${date.getDay()}`,
       priority: priorityValue,
     };
+    setIsFilter(false)
     setIsSorted(false);
+    setTicketData(ticketData)
     setTicketData((data) => [...data, newData]);
   };
 
@@ -99,7 +103,7 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                filterPriority("low");
+                filterPriority(TICKET_PRIORITY_TYPE.LOW);
                 setIsFilter(true);
               }}
             >
@@ -112,7 +116,7 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                filterPriority("normal");
+                filterPriority(TICKET_PRIORITY_TYPE.NORMAL);
                 setIsFilter(true);
               }}
             >
@@ -125,7 +129,7 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                filterPriority("high");
+                filterPriority(TICKET_PRIORITY_TYPE.HIGH);
                 setIsFilter(true);
               }}
             >
@@ -178,7 +182,7 @@ export const Tickets = () => {
             ) : null}
           </div>
           <button className="tickets__btn-add" onClick={showModal}>
-            + Add contacts
+            + Add ticket
           </button>
         </div>
         <TicketsTable ticketData={data} deleteTicket={deleteTicket} />
