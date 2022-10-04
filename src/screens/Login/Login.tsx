@@ -2,7 +2,7 @@ import React from "react";
 import './Login.scss'
 import { InputText } from "../../components/Inputs/InputText/InputText";
 import { InputPassword } from "../../components/Inputs/InputPassword/InputPassword";
-import  { Button }  from "../../components/Buttons/buttons";
+import { Button } from "../../components/Buttons/buttons";
 import { AuthHeader } from "../../components/AuthHeader/AuthHeader";
 import { AuthFooter } from "../../components/AuthFooter/AuthFooter";
  

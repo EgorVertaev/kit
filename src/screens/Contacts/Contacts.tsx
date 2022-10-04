@@ -37,6 +37,7 @@ export const Contacts = () => {
       createData: `${date.getMonth()} ${date.getDate()}, ${date.getFullYear()}`,
     };
     setIsSorted(false);
+    setData(contactsData)
     setData((data) => [...data, newData]);
   };
 

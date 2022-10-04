@@ -7,7 +7,7 @@ export const RequireAuth: FC<IChildrenProps> = ({ children} ) => {
   const context = useAuth();
    
   if(!context?.isAuth) {
-    return <Navigate to="/login"/>
+    return <Navigate to={'/login'}/>
   }
 
   return (
