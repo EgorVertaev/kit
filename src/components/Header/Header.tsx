@@ -2,17 +2,19 @@ import React, { FC } from 'react'
 import { UserState } from '../../hooks/userState'
 import './Header.scss'
 import { Dropdown, Menu} from 'antd';
-import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
+import { logOut } from '../../redux/Slices/AuthSlice'
 interface IHeaderProps {
   title: string
 }
 
-
 export const Header: FC<IHeaderProps> = ({title}) => {
   const userInfo = UserState()
-  const isAuth = useAuth() 
- 
+  const isAuth = useSelector((state: any) => state.auth.isAuth)
+  console.log(isAuth)
+  const dispatch = useDispatch()
+
   const menu = (
     <Menu
       items={[
@@ -25,7 +27,9 @@ export const Header: FC<IHeaderProps> = ({title}) => {
         {
           key: '2',
           label: (
-            <button onClick={() =>isAuth?.logOut() }>Log Out</button>
+            <button onClick={() => {
+              dispatch(logOut(false))
+            }}>Log Out</button>
           ),
         }
       ]}

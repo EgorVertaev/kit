@@ -2,14 +2,33 @@ import React, { useState } from "react";
 import "./Contacts.scss";
 import ContactsTable from "./ContactsTable/ContactsTable";
 import { Modal } from "antd";
-import { contactsData } from "./moaks";
 import { ContactModal } from "../../components/Modals/ContactModal/ContactModal";
 import { IPaginationUseState } from "../../types/types";
 import { FilterIcon, SortIcon } from "../../components/Icons/Icon";
 import { Header } from "../../components/Header/Header";
 import { Dropdown, Menu } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addContact,
+  clearSorted,
+  sortDataFromAtoZ,
+  sortDataFromZtoA,
+  setIsSortedIconColor,
+  filterData,
+  setIsFiltered,
+  clearFilter,
+} from "../../redux/Slices/ContactSlice";
+import { deleteContact } from "../../redux/Slices/ContactSlice";
 
 export const Contacts = () => {
+  const contactsData = useSelector((state: any) => state.contact.contactsData);
+  const isSorted = useSelector((state: any) => state.contact.isSorted);
+  const isFiltered = useSelector((state: any) => state.contact.isFiltered);
+  const isSortedIconColor = useSelector(
+    (state: any) => state.contact.isSortedIconColor
+  );
+
+  const dispatch = useDispatch();
 
   const [pagination, setPagination] = useState<IPaginationUseState>({
     current: 1,
@@ -17,59 +36,27 @@ export const Contacts = () => {
     // total: 8,
   });
 
-  const [data, setData] = useState(contactsData);
-
+  // add contact
   const setNewContact = (
     firstNameValue: string,
     lastNameValue: string,
     emailValue: string,
     adressValue: string
-  ) => {
-    const date = new Date();
-    const randomId = Date.now().toString();
-    const newData = {
-      id: randomId,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh1szjLLPfS0u2-xy0t04XfwMfDXAxkmv3e8IWNcfcAZ2xOWoV1joEQu0FshB_XOjtRRg&usqp=CAU",
-      name: `${firstNameValue} ${lastNameValue}`,
-      email: emailValue,
-      address: adressValue,
-      createData: `${date.getMonth()} ${date.getDate()}, ${date.getFullYear()}`,
-    };
-    setIsSorted(false);
-    setData(contactsData)
-    setData((data) => [...data, newData]);
-  };
+  ) =>
+    dispatch(
+      addContact({ firstNameValue, lastNameValue, emailValue, adressValue })
+    );
 
-  const deleteContact = (id: string) => {
-    const newData = data.filter((el) => el.id !== id);
-    setData(newData);
-  };
+  // delete contact
+  const delContact = (id: string) => dispatch(deleteContact(id));
 
   // Sort
-  const [isSorted, setIsSorted] = useState(false);
 
-  const sortedData = () => {
-    if (isSorted === false) {
-      const newSortData = [...data];
-      const sort = newSortData.sort((a, b) =>
-        a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
-      );
-      setIsSorted(true);
-      setData(sort);
-    }
-
-    if (isSorted === true) {
-      const newSortData = [...data];
-      const sort = newSortData.sort((a, b) =>
-        a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1
-      );
-      setIsSorted(false);
-      setData(sort);
-    }
+  const sortAndDispatch = () => {
+    dispatch(sortDataFromZtoA());
+    dispatch(setIsSortedIconColor(true));
   };
   // Modal
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -78,6 +65,10 @@ export const Contacts = () => {
 
   const handleSave = () => {
     setIsModalOpen(false);
+    dispatch(clearSorted());
+    dispatch(setIsSortedIconColor(false));
+    dispatch(setIsFiltered(false))
+    dispatch(clearFilter())
   };
 
   const handleCancel = () => {
@@ -85,16 +76,6 @@ export const Contacts = () => {
   };
 
   // dropdown
-  const [isFilter, setIsFilter] = useState(false);
-
-  //Filter
-  const [filterValue, setFilterValue] = useState("");
-
-  const FilterData = () => {
-    const newFilterData = [...data];
-    const filteredData = newFilterData.filter((item) => item.name === filterValue);
-    setData(filteredData);
-  };
   
   const menu = (
     <Menu
@@ -109,19 +90,11 @@ export const Contacts = () => {
               }}
             >
               <input
-                onChange={(e) => setFilterValue(e.currentTarget.value)}
+                onChange={(e) => dispatch(filterData(e.currentTarget.value))}
                 type="text"
                 placeholder="search name"
                 style={{ marginRight: "10px" }}
               />
-              <button
-                onClick={() => {
-                  FilterData();
-                  setIsFilter(true);
-                }}
-              >
-                Ok
-              </button>
             </form>
           ),
         },
@@ -136,46 +109,75 @@ export const Contacts = () => {
       <div className="contacts">
         <div className="contacts__header">
           <div className="contacts__inner">
-            <button className="contacts__btn-sort" onClick={() => sortedData()}>
+            <button
+              className="contacts__btn-sort"
+              onClick={() =>
+                isSorted ? dispatch(sortDataFromAtoZ()) : sortAndDispatch()
+              }
+            >
               <div className="contacts__btn-icon">
-                {isSorted ? <SortIcon fill="#3751FF" /> : <SortIcon />}
+                {isSortedIconColor ? <SortIcon fill="#3751FF" /> : <SortIcon />}
               </div>
               <span className="contacts__btn-body">Sort</span>
             </button>
 
             <Dropdown
-              overlay={isFilter ? <span></span> : menu}
+              overlay={ menu}
               trigger={["click"]}
             >
-              <button className="contacts__btn-filter" >
+              <button className="contacts__btn-filter" onClick={() => dispatch(setIsFiltered(true))}>
                 <div className="contacts__btn-icon">
-                  {isFilter ? <FilterIcon fill="#3751FF" /> : <FilterIcon />}
+                  {isFiltered ? (
+                    <FilterIcon fill="#3751FF" />
+                  ) : (
+                    <FilterIcon />
+                  )}
                 </div>
                 <span>Filter</span>
               </button>
             </Dropdown>
 
-            {isFilter ? 
+            {isFiltered ? (
               <button
                 onClick={() => {
-                  setIsFilter(false);
-                  setData(contactsData);
+                  dispatch(setIsFiltered(false))
+                  dispatch(clearFilter())
                 }}
-                style={{backgroundColor: "#C5C7CD", padding: "2px 6px", borderRadius: "6px"}}
+                style={{
+                  backgroundColor: "#C5C7CD",
+                  padding: "2px 6px",
+                  borderRadius: "6px",
+                }}
               >
                 clear filter X
               </button>
-             : null}
+            ) : null}
+
+            {isSortedIconColor ? (
+              <button
+                onClick={() => {
+                  dispatch(clearSorted());
+                  dispatch(setIsSortedIconColor(false));
+                }}
+                style={{
+                  backgroundColor: "#C5C7CD",
+                  padding: "2px 6px",
+                  borderRadius: "6px",
+                }}
+              >
+                clear sort X
+              </button>
+            ) : null}
           </div>
           <button className="contacts__btn-add" onClick={showModal}>
             + Add contacts
           </button>
         </div>
         <ContactsTable
-          data={data}
+          data={contactsData}
           pagination={pagination}
           setPagination={setPagination}
-          deleteContact={deleteContact}
+          delContact={delContact}
         />
       </div>
 

@@ -3,17 +3,16 @@ import "./ContactMore.scss";
 import { Dropdown, Menu} from 'antd';
 import { IContactsData } from "../../../../../types/types";
 
+
+
 interface IMoreProps {
-  deleteContact: (id: string) => void;
   record: IContactsData;
+  delContact: (id: string) => void;
 }
 
 
+export const ContactMore = ({ delContact, record }: IMoreProps) => {
 
-
-
-export const ContactMore = ({ deleteContact, record }: IMoreProps) => {
-  
   const menu = (
     <Menu
       selectable
@@ -24,7 +23,7 @@ export const ContactMore = ({ deleteContact, record }: IMoreProps) => {
           label: (
             <p className="more__modal-btn"
             onClick={() => {
-              deleteContact(record.id);
+              delContact(record.id);
             }}
           >
             Delete

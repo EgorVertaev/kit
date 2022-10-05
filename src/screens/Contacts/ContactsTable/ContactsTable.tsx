@@ -11,14 +11,14 @@ interface IContactsTableData {
   data: IContactsData[];
   pagination: IPaginationUseState;
   setPagination: ({ current, pageSize }: IPaginationUseState) => void;
-  deleteContact: (id: string) => void;
+  delContact: (id: string) => void
 }
 
 const ContactsTable: React.FC<IContactsTableData> = ({
   data,
   pagination,
   setPagination,
-  deleteContact,
+  delContact,
 }) => {
 
   const columns: ColumnsType<IContactsData> = [
@@ -53,7 +53,7 @@ const ContactsTable: React.FC<IContactsTableData> = ({
       key: "action",
       render: (_, record) => (
         <>
-          <ContactMore deleteContact={deleteContact} record={record} />
+          <ContactMore delContact={delContact} record={record} />
         </>
       ),
     },
