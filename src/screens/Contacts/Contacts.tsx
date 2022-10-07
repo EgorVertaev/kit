@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Contacts.scss";
 import ContactsTable from "./ContactsTable/ContactsTable";
 import { Modal } from "antd";
@@ -11,24 +11,29 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   addContact,
   clearSorted,
+  deleteContact,
   sortDataFromAtoZ,
   sortDataFromZtoA,
   setIsSortedIconColor,
   filterData,
   setIsFiltered,
   clearFilter,
-} from "../../redux/Slices/ContactSlice";
-import { deleteContact } from "../../redux/Slices/ContactSlice";
+  getContacts,
+} from "../../redux/Reducers/ContactReducer";
 
 export const Contacts = () => {
-  const contactsData = useSelector((state: any) => state.contact.contactsData);
-  const isSorted = useSelector((state: any) => state.contact.isSorted);
-  const isFiltered = useSelector((state: any) => state.contact.isFiltered);
+  const dispatch = useDispatch();
+  const contactsData = useSelector((state: any) => state.contacts.contactsData);
+  const isSorted = useSelector((state: any) => state.contacts.isSorted);
+  const isFiltered = useSelector((state: any) => state.contacts.isFiltered);
   const isSortedIconColor = useSelector(
-    (state: any) => state.contact.isSortedIconColor
+    (state: any) => state.contacts.isSortedIconColor
   );
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(getContacts());
+  }, [dispatch]);
 
   const [pagination, setPagination] = useState<IPaginationUseState>({
     current: 1,
@@ -44,7 +49,7 @@ export const Contacts = () => {
     adressValue: string
   ) =>
     dispatch(
-      addContact({ firstNameValue, lastNameValue, emailValue, adressValue })
+      addContact(firstNameValue, lastNameValue, emailValue, adressValue)
     );
 
   // delete contact
@@ -67,8 +72,8 @@ export const Contacts = () => {
     setIsModalOpen(false);
     dispatch(clearSorted());
     dispatch(setIsSortedIconColor(false));
-    dispatch(setIsFiltered(false))
-    dispatch(clearFilter())
+    dispatch(setIsFiltered(false));
+    dispatch(clearFilter());
   };
 
   const handleCancel = () => {
@@ -76,7 +81,7 @@ export const Contacts = () => {
   };
 
   // dropdown
-  
+
   const menu = (
     <Menu
       items={[
@@ -121,17 +126,13 @@ export const Contacts = () => {
               <span className="contacts__btn-body">Sort</span>
             </button>
 
-            <Dropdown
-              overlay={ menu}
-              trigger={["click"]}
-            >
-              <button className="contacts__btn-filter" onClick={() => dispatch(setIsFiltered(true))}>
+            <Dropdown overlay={menu} trigger={["click"]}>
+              <button
+                className="contacts__btn-filter"
+                onClick={() => dispatch(setIsFiltered(true))}
+              >
                 <div className="contacts__btn-icon">
-                  {isFiltered ? (
-                    <FilterIcon fill="#3751FF" />
-                  ) : (
-                    <FilterIcon />
-                  )}
+                  {isFiltered ? <FilterIcon fill="#3751FF" /> : <FilterIcon />}
                 </div>
                 <span>Filter</span>
               </button>
@@ -140,8 +141,8 @@ export const Contacts = () => {
             {isFiltered ? (
               <button
                 onClick={() => {
-                  dispatch(setIsFiltered(false))
-                  dispatch(clearFilter())
+                  dispatch(setIsFiltered(false));
+                  dispatch(clearFilter());
                 }}
                 style={{
                   backgroundColor: "#C5C7CD",

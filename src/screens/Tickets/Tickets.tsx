@@ -1,50 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TicketsTable } from "./TicketsTable/TicketsTable";
 import { Modal } from "antd";
 import "./Tickets.scss";
 import { TicketModal } from "../../components/Modals/TicketModal/TicketModal";
-import { ticketData } from "./ticketmoaks";
 import { FilterIcon, SortIcon } from "../../components/Icons/Icon";
 import { Header } from "../../components/Header/Header";
 import { Dropdown, Menu } from "antd";
-import { TICKET_PRIORITY_TYPE } from '../../constants/constans'
-
+import { TICKET_PRIORITY_TYPE } from "../../constants/constans";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addTicket,
+  deleteTicket,
+  clearSorted,
+  sortDataFromAtoZ,
+  sortDataFromZtoA,
+  setSortIconColor,
+  filterData,
+  setIsFiltered,
+  clearTicketFilter,
+  getTickets,
+} from "../../redux/Reducers/TicketsReducer";
 
 export const Tickets = () => {
-  const [data, setTicketData] = useState(ticketData);
+  const dispatch = useDispatch();
+  const ticketsData = useSelector((state: any) => state.tickets.ticketsData);
+  const isSorted = useSelector((state: any) => state.tickets.isSorted);
+  const isFiltered = useSelector((state: any) => state.tickets.isFiltered);
+  const isSortedIconColor = useSelector(
+    (state: any) => state.tickets.isSortedIconColor
+  );
+  const state = useSelector((state) => state);
+  console.log(state);
 
-  console.log(data);
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(getTickets());
+  }, [dispatch]);
+
+  // AddTicket
   const setNewTicket = (
     castomerName: string,
     descriptionValue: string,
     dateValue: string,
     priorityValue: string
   ) => {
-    const date = new Date();
-    const randomId = Date.now().toString();
-    const newData = {
-      id: randomId,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh1szjLLPfS0u2-xy0t04XfwMfDXAxkmv3e8IWNcfcAZ2xOWoV1joEQu0FshB_XOjtRRg&usqp=CAU",
-      description: descriptionValue,
-      descData: `Updated ${date.getDay()} day ago`,
-      name: castomerName,
-      nameData: `on ${date.getMonth()} ${date.getDate()}, ${date.getFullYear()}`,
-      date: dateValue,
-      dateTime: `${date.getDay()}`,
-      priority: priorityValue,
-    };
-    setIsFilter(false)
-    setIsSorted(false);
-    setTicketData(ticketData)
-    setTicketData((data) => [...data, newData]);
+    dispatch(
+      addTicket(castomerName, descriptionValue, dateValue, priorityValue)
+    );
   };
 
-  const deleteTicket = (id: string) => {
-    const newData = data.filter((el) => el.id !== id);
-    setTicketData(newData);
-  };
+  // deleteTicket
+  const delTicket = (id: string) => dispatch(deleteTicket(id));
 
+  // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -53,6 +61,8 @@ export const Tickets = () => {
 
   const handleSave = () => {
     setIsModalOpen(false);
+    dispatch(clearSorted());
+    dispatch(clearTicketFilter());
   };
 
   const handleCancel = () => {
@@ -60,38 +70,21 @@ export const Tickets = () => {
   };
 
   // Sort
-  const [isSorted, setIsSorted] = useState(false);
-
-  const sortedData = () => {
-    if (isSorted === false) {
-      const newSortData = [...data];
-      const sort = newSortData.sort((a, b) =>
-        a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
-      );
-      setIsSorted(true);
-      setTicketData(sort);
-    }
-
-    if (isSorted === true) {
-      const newSortData = [...data];
-      const sort = newSortData.sort((a, b) =>
-        a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1
-      );
-      setIsSorted(false);
-      setTicketData(sort);
-    }
+  const sortAndDispatch = () => {
+    dispatch(sortDataFromZtoA());
+    dispatch(setSortIconColor(true));
   };
 
   // Filter
-  const [isFilter, setIsFilter] = useState(false);
+  // const [isFilter, setIsFilter] = useState(false);
 
-  const filterPriority = (priority: string) => {
-    const newFilterData = [...data];
-    const filteredData = newFilterData.filter(
-      (item) => item.priority === priority
-    );
-    setTicketData(filteredData);
-  };
+  // const filterPriority = (priority: string) => {
+  //   const newFilterData = [...data];
+  //   const filteredData = newFilterData.filter(
+  //     (item) => item.priority === priority
+  //   );
+  //   setTicketData(filteredData);
+  // };
 
   // Dropdown
 
@@ -103,8 +96,8 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                filterPriority(TICKET_PRIORITY_TYPE.LOW);
-                setIsFilter(true);
+                dispatch(filterData(TICKET_PRIORITY_TYPE.LOW));
+                dispatch(setIsFiltered(true));
               }}
             >
               Low
@@ -116,8 +109,8 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                filterPriority(TICKET_PRIORITY_TYPE.NORMAL);
-                setIsFilter(true);
+                dispatch(filterData(TICKET_PRIORITY_TYPE.NORMAL));
+                dispatch(setIsFiltered(true));
               }}
             >
               Normal
@@ -129,8 +122,8 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                filterPriority(TICKET_PRIORITY_TYPE.HIGH);
-                setIsFilter(true);
+                dispatch(filterData(TICKET_PRIORITY_TYPE.HIGH));
+                dispatch(setIsFiltered(true));
               }}
             >
               High
@@ -148,28 +141,33 @@ export const Tickets = () => {
       <div className="tickets">
         <div className="tickets__header">
           <div className="tickets__inner">
-            <button className="tickets__btn-sort" onClick={() => sortedData()}>
+            <button
+              className="tickets__btn-sort"
+              onClick={() =>
+                isSorted ? dispatch(sortDataFromAtoZ()) : sortAndDispatch()
+              }
+            >
               <div className="tickets__btn-icon">
-                {isSorted ? <SortIcon fill="#3751FF" /> : <SortIcon />}
+                {isSortedIconColor ? <SortIcon fill="#3751FF" /> : <SortIcon />}
               </div>
               <span className="tickets__btn-body">Sort</span>
             </button>
             <Dropdown
-              overlay={isFilter ? <span></span> : menu}
+              overlay={isFiltered ? <span></span> : menu}
               trigger={["click"]}
             >
               <button className="tickets__btn-filter">
                 <div className="tickets__btn-icon">
-                  {isFilter ? <FilterIcon fill="#3751FF" /> : <FilterIcon />}
+                  {isFiltered ? <FilterIcon fill="#3751FF" /> : <FilterIcon />}
                 </div>
                 <span className="tickets__btn-body">Filter</span>
               </button>
             </Dropdown>
-            {isFilter ? (
+            {isFiltered ? (
               <button
                 onClick={() => {
-                  setIsFilter(false);
-                  setTicketData(ticketData);
+                  dispatch(setIsFiltered(false));
+                  dispatch(clearTicketFilter());
                 }}
                 style={{
                   backgroundColor: "#C5C7CD",
@@ -180,12 +178,28 @@ export const Tickets = () => {
                 clear filter X
               </button>
             ) : null}
+
+            {isSortedIconColor ? (
+              <button
+                onClick={() => {
+                  dispatch(setSortIconColor(false));
+                  dispatch(clearSorted());
+                }}
+                style={{
+                  backgroundColor: "#C5C7CD",
+                  padding: "2px 6px",
+                  borderRadius: "6px",
+                }}
+              >
+                clear sort X
+              </button>
+            ) : null}
           </div>
           <button className="tickets__btn-add" onClick={showModal}>
             + Add ticket
           </button>
         </div>
-        <TicketsTable ticketData={data} deleteTicket={deleteTicket} />
+        <TicketsTable ticketData={ticketsData} delTicket={delTicket} />
 
         <Modal
           title="Add new ticket"

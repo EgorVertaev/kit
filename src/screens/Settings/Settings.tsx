@@ -1,20 +1,19 @@
 import React from 'react'
-import { UserState } from '../../hooks/userState'
 import './Settings.scss'
 import { Image } from "antd"
+import { useSelector } from 'react-redux'
 
 export const Settings = () => {
-  const myData = UserState()
+  const user = useSelector((state: any) => state.user.user)
 
-  
   return (
     <div className='settings'>
       <div className="settings__body">
-        <Image src={myData?.image} alt={"user-picture"}/>
-        <div>First name: {myData?.firstName}</div>
-        <div>Last name: {myData?.lastName}</div>
-        <div>Email: {myData?.email}</div>
-        <div>Adress: {myData?.adress}</div>
+        <Image src={user.image} alt={"user-picture"}/>
+        <div>First name: {user.firstName}</div>
+        <div>Last name: {user.lastName}</div>
+        <div>Email: {user.email}</div>
+        <div>Adress: {user.adress}</div>
       </div>
     </div>
   )

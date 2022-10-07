@@ -2,12 +2,13 @@ import React from "react";
 import "./TicketMore.scss";
 import { ITicketsData } from "../../../../../types/types";
 import { Dropdown, Menu} from 'antd';
+
 interface ITicketMoreProps {
-  deleteTicket: (id: string) => void;
+  delTicket: (id: string) => void;
   record: ITicketsData;
 }
 
-export const TicketMore = ({ deleteTicket, record }: ITicketMoreProps) => {
+export const TicketMore = ({ delTicket, record }: ITicketMoreProps) => {
   const menu = (
     <Menu
       items={[
@@ -16,7 +17,7 @@ export const TicketMore = ({ deleteTicket, record }: ITicketMoreProps) => {
           label: (
             <p className="more__modal-btn"
             onClick={() => {
-              deleteTicket(record.id);
+              delTicket(record.id);
             }}
           >
             Delete

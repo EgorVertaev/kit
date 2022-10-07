@@ -11,10 +11,10 @@ import { TicketMore } from "./TicketsTableComponent/TicketMore/TicketMore";
 
 interface ITicketsTableProps {
   ticketData: ITicketsData[];
-  deleteTicket: (id: string) => void;
+  delTicket: (id: string) => void;
 }
 
-export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData, deleteTicket }) => {
+export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData, delTicket }) => {
   const columns: ColumnsType<ITicketsData> = [
     {
       title: "Ticket details",
@@ -65,7 +65,7 @@ export const TicketsTable: React.FC<ITicketsTableProps> = ({ ticketData, deleteT
     { 
       width: "50px",
       render: (_, record) => (
-        <TicketMore record={record} deleteTicket={deleteTicket}/>
+        <TicketMore record={record} delTicket={delTicket}/>
       ),
     },
   ];
