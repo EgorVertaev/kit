@@ -6,9 +6,10 @@ interface IinputTextProps {
   label: string
   name: string
   type: string
+  observer: (e: string) => void
 }
 
-export const InputText: FC<IinputTextProps> = ({ label, name, type }) => {
+export const InputText: FC<IinputTextProps> = ({ label, name, type, observer }) => {
 
   return (
     <div>
@@ -17,7 +18,9 @@ export const InputText: FC<IinputTextProps> = ({ label, name, type }) => {
           className="input__text" 
           name={name} 
           type={type} 
-          placeholder="Email address"/>
+          placeholder="Email address"
+          onChange={(e) => observer(e.currentTarget.value)}
+          />
     </div>
   )
 }

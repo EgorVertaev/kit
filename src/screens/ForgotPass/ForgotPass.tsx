@@ -14,7 +14,7 @@ export const ForgotPass = () => {
       description={'Enter your email from registered account'}
       />
       <form className="forgot-pass__form">
-        <InputText label={'email'} type={"email"} name={"email"}/>
+        <InputText label={'email'} type={"email"} name={"email"} observer={() => null}/>
         <div className="forgot-pass__btn">
           <Button body={"Send"}/>
         </div>

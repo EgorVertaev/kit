@@ -18,8 +18,9 @@ import {
   filterData,
   setIsFiltered,
   clearFilter,
-  getContacts,
-} from "../../redux/Reducers/ContactReducer";
+} from "../../redux/actionCreators";
+
+import { getContacts } from '../../redux/thunks'
 
 export const Contacts = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ export const Contacts = () => {
     adressValue: string
   ) =>
     dispatch(
-      addContact(firstNameValue, lastNameValue, emailValue, adressValue)
+      addContact({firstNameValue, lastNameValue, emailValue, adressValue})
     );
 
   // delete contact

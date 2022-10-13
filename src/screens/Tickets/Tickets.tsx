@@ -12,28 +12,26 @@ import {
   addTicket,
   deleteTicket,
   clearSorted,
-  sortDataFromAtoZ,
-  sortDataFromZtoA,
+  sortTicketDataFromAtoZ,
+  sortTicketDataFromZtoA,
   setSortIconColor,
   filterData,
   setIsFiltered,
   clearTicketFilter,
-  getTickets,
-} from "../../redux/Reducers/TicketsReducer";
+} from "../../redux/actionCreators";
+import {  getTickets } from '../../redux/thunks'
+import { IState } from "../../types/types";
 
 export const Tickets = () => {
-  const dispatch = useDispatch();
-  const ticketsData = useSelector((state: any) => state.tickets.ticketsData);
-  const isSorted = useSelector((state: any) => state.tickets.isSorted);
-  const isFiltered = useSelector((state: any) => state.tickets.isFiltered);
+  const dispatch = useDispatch<any>();
+  const ticketsData = useSelector((state: IState) => state.tickets.ticketsData);
+  const isSorted = useSelector((state: IState) => state.tickets.isSorted);
+  const isFiltered = useSelector((state: IState) => state.tickets.isFiltered);
   const isSortedIconColor = useSelector(
-    (state: any) => state.tickets.isSortedIconColor
+    (state: IState) => state.tickets.isSortedIconColor
   );
-  const state = useSelector((state) => state);
-  console.log(state);
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(getTickets());
   }, [dispatch]);
 
@@ -45,7 +43,7 @@ export const Tickets = () => {
     priorityValue: string
   ) => {
     dispatch(
-      addTicket(castomerName, descriptionValue, dateValue, priorityValue)
+      addTicket({castomerName, descriptionValue, dateValue, priorityValue})
     );
   };
 
@@ -71,21 +69,10 @@ export const Tickets = () => {
 
   // Sort
   const sortAndDispatch = () => {
-    dispatch(sortDataFromZtoA());
+    dispatch(sortTicketDataFromZtoA());
     dispatch(setSortIconColor(true));
   };
-
-  // Filter
-  // const [isFilter, setIsFilter] = useState(false);
-
-  // const filterPriority = (priority: string) => {
-  //   const newFilterData = [...data];
-  //   const filteredData = newFilterData.filter(
-  //     (item) => item.priority === priority
-  //   );
-  //   setTicketData(filteredData);
-  // };
-
+ 
   // Dropdown
 
   const menu = (
@@ -144,7 +131,7 @@ export const Tickets = () => {
             <button
               className="tickets__btn-sort"
               onClick={() =>
-                isSorted ? dispatch(sortDataFromAtoZ()) : sortAndDispatch()
+                isSorted ? dispatch(sortTicketDataFromAtoZ()) : sortAndDispatch()
               }
             >
               <div className="tickets__btn-icon">

@@ -14,8 +14,8 @@ export const ResetPass = () => {
       description={'Enter new password'}
       />
       <form className="reset-pass__form">
-        <InputPassword label={'new password'}/>
-        <InputPassword label={'confirm new password'}/>
+        <InputPassword label={'new password'} observer={() => null}/>
+        <InputPassword label={'confirm new password'} observer={() => null}/> 
         <div className="reset-pass__btn">
           <Button body={"Send"}/>
         </div> 

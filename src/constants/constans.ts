@@ -7,3 +7,5 @@ export enum TICKET_PRIORITY_TYPE {
   NORMAL = 'normal',
   HIGH = 'high',
 }
+
+export const myToken: string = "12345"

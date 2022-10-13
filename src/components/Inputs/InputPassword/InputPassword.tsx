@@ -4,9 +4,10 @@ import {Eye, EyeHide} from "../../Icons/Icon"
 
 interface IInputPasswordProps {
   label: string
+  observer: (e: string) => void
 }
 
-export const InputPassword: FC<IInputPasswordProps> = ({ label }) => {
+export const InputPassword: FC<IInputPasswordProps> = ({ label, observer }) => {
   const [type, setType] = useState('password')
   const [icon, setIcon] = useState(false)
 
@@ -16,6 +17,7 @@ export const InputPassword: FC<IInputPasswordProps> = ({ label }) => {
         <input 
           className="input__password" 
           type={type} 
+          onChange={e => observer(e.currentTarget.value)}
           name="password" 
           placeholder="Password"/>
       <div className="input__eye"  onClick={() => {

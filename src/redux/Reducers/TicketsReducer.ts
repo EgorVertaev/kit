@@ -1,24 +1,30 @@
-import { getAllTickets } from "../../api/tickets";
 
-const ADD_TICKET = "ADD_TICKET";
-const DELETE_TICKET = "DELETE_TICKET";
-const SORT_TICKET_FROM_A_TO_Z = "SORT_TICKET_FROM_A_TO_Z";
-const SORT_TICKET_FROM_Z_TO_A = "SORT_TICKET_FROM_Z_TO_A";
-const CLEAR_SORTED_TICKET = "CLEAR_SORTED_TICKET";
-const SET_IS_TICKET_SORTED_ICON_COLOR = "SET_IS_TICKET_SORTED_ICON_COLOR";
-const FILTER_TICKET_DATA = "FILTER_TICKET_DATA";
-const SET_IS_TICKET_FILTERED = "SET_IS_TICKET_FILTERED_";
-const CLEAR_TICKET_FILTER = "CLEAR_TICKET_FILTER";
-const SET_TICKETS = "SET_TICKETS";
+import { IticketInitialState } from "../../types/types";
+import {
+  ADD_TICKET,
+  CLEAR_SORTED_TICKET,
+  CLEAR_TICKET_FILTER,
+  DELETE_TICKET,
+  FILTER_TICKET_DATA,
+  SET_IS_TICKET_FILTERED,
+  SET_IS_TICKET_SORTED_ICON_COLOR,
+  SET_TICKETS,
+  SORT_TICKET_FROM_A_TO_Z,
+  SORT_TICKET_FROM_Z_TO_A,
+  TicketActionsType,
+} from "../actionCreators";
 
-const initialState = {
+const initialState: IticketInitialState = {
   ticketsData: [],
   isSorted: false,
   isSortedIconColor: false,
   isFiltered: false,
 };
 
-const ticketReducer = (state = initialState, action) => {
+const ticketReducer = (
+  state = initialState,
+  action: TicketActionsType
+): IticketInitialState => {
   switch (action.type) {
     case SET_TICKETS:
       const tickets = action.payload;
@@ -122,43 +128,5 @@ const ticketReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-// action
-export const addTicket = (
-  descriptionValue,
-  castomerName,
-  dateValue,
-  priorityValue
-) => ({
-  type: ADD_TICKET,
-  payload: { descriptionValue, castomerName, dateValue, priorityValue },
-});
-export const deleteTicket = (id) => ({ type: DELETE_TICKET, payload: { id } });
-export const sortDataFromAtoZ = () => ({ type: SORT_TICKET_FROM_A_TO_Z });
-export const sortDataFromZtoA = () => ({ type: SORT_TICKET_FROM_Z_TO_A });
-export const clearSorted = () => ({ type: CLEAR_SORTED_TICKET });
-export const setSortIconColor = (value) => ({
-  type: SET_IS_TICKET_SORTED_ICON_COLOR,
-  payload: value,
-});
-export const filterData = (value) => ({
-  type: FILTER_TICKET_DATA,
-  payload: value,
-});
-export const setIsFiltered = (value) => ({
-  type: SET_IS_TICKET_FILTERED,
-  payload: value,
-});
-export const clearTicketFilter = () => ({ type: CLEAR_TICKET_FILTER });
-const setUsers = (contacts) => ({ type: SET_TICKETS, payload: contacts });
-
-// thunks
-
-export const getTickets = () => {
-  return (dispatch) => {
-    getAllTickets().then((contacts) => dispatch(setUsers(contacts)));
-  };
-};
- 
 
 export default ticketReducer;

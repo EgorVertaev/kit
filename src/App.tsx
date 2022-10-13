@@ -13,12 +13,18 @@ import { SignUp } from "./screens/SignUp/SignUp";
 import { ROUTES } from "./routes/Routes";
 import { Tickets } from "./screens/Tickets/Tickets";
 
-
 function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Layout />
+            </RequireAuth>
+          }
+        >
           <Route
             path={ROUTES.OVERVIEW}
             element={

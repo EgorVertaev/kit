@@ -15,11 +15,11 @@ export const SignUp = () => {
       description={'Create a new account'}
       />
       <form className="sign__form">
-        <InputText label={'email'} type={'email'} name={'email'}/>
-        <InputText label={'first name'} name={"First Name"} type={'text'}/>
-        <InputText label={'last name'} name={"Last Name"} type={'text'}/>
-        <InputPassword label={'password'}/>
-        <InputPassword label={'confirm password'}/>
+        <InputText label={'email'} type={'email'} name={'email'} observer={() => null}/>
+        <InputText label={'first name'} name={"First Name"} type={'text'} observer={() => null}/>
+        <InputText label={'last name'} name={"Last Name"} type={'text'} observer={() => null}/>
+        <InputPassword label={'password'} observer={() => null}/>
+        <InputPassword label={'confirm password'} observer={() => null}/>
         <Button body={"Register"}/>
       </form>
       

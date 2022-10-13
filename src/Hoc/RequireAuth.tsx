@@ -1,12 +1,13 @@
 import React, { FC } from 'react'
 import { Navigate } from 'react-router-dom'
+import { myToken } from '../constants/constans'
 import { IChildrenProps } from '../types/types'
-import { useSelector } from 'react-redux'
+
 
 export const RequireAuth: FC<IChildrenProps> = ({ children} ) => {
-  const isAuth = useSelector((state: any) => state.auth.isAuth)
-  
-  if(!isAuth) {
+  const authToken = localStorage.getItem('token')
+
+  if(authToken !== myToken) {
     return <Navigate to={'/login'}/>
   }
 
