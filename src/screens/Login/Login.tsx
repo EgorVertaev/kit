@@ -7,26 +7,18 @@ import { AuthHeader } from "../../components/AuthHeader/AuthHeader";
 import { AuthFooter } from "../../components/AuthFooter/AuthFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { logIn } from "../../redux/actionCreators";
-
-import { myToken } from "../../constants/constans";
+import { loginRequested } from "../../redux/Auth/authActions";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state: any) => state.auth.isAuth);
-  const { password, login } = useSelector((state: any) => state.auth);
+  const errorMessage = useSelector((state: any) => state.auth.error);
 
   const [userEnterLogin, setUserEnterLogin] = useState("");
   const [userEnterPassword, setUserEnterPassword] = useState("");
 
   const loginCompare = () => {
-    if (password === userEnterPassword && login === userEnterLogin) {
-      dispatch(logIn());
-      localStorage.setItem("token", myToken);
-    }
-    if (password !== userEnterPassword && login !== userEnterLogin) {
-      localStorage.clear();
-    }
+    dispatch(loginRequested(userEnterLogin, userEnterPassword))
   };
 
   if (isAuth) {
@@ -48,6 +40,9 @@ export const Login = () => {
           observer={setUserEnterLogin}
         />
         <InputPassword label={"password"} observer={setUserEnterPassword} />
+        <div className="login__error">
+          {errorMessage}
+        </div>
         <div className="login__btn" onClick={loginCompare}>
           <Button body={"Log In"} />
         </div>

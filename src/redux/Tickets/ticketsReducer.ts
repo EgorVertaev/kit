@@ -11,8 +11,8 @@ import {
   SET_TICKETS,
   SORT_TICKET_FROM_A_TO_Z,
   SORT_TICKET_FROM_Z_TO_A,
-  TicketActionsType,
-} from "../actionCreators";
+} from "./ticketsAction";
+import { TicketActionsType } from "./types";
 
 const initialState: IticketInitialState = {
   ticketsData: [],

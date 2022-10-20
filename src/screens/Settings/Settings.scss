@@ -4,4 +4,17 @@
   border: 1px solid #DFE0EB;
   border-radius: 8px;
   height: 80vh;
+  display: flex;
+
+  &__body {
+    margin-right: 30px;
+  }
+
+  &__form {
+    width: 600px;
+    height: 600px;
+    border: 1px solid gray;
+    border-radius: 12px;
+    padding: 15px;
+  }
 }

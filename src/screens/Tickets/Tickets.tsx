@@ -11,19 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addTicket,
   deleteTicket,
-  clearSorted,
+  clearTicketSorted,
   sortTicketDataFromAtoZ,
   sortTicketDataFromZtoA,
   setSortIconColor,
-  filterData,
-  setIsFiltered,
+  filterTicketData,
+  setTicketIsFiltered,
   clearTicketFilter,
-} from "../../redux/actionCreators";
-import {  getTickets } from '../../redux/thunks'
+  ticketFetchRequested,
+} from "../../redux/Tickets/ticketsAction";
 import { IState } from "../../types/types";
 
 export const Tickets = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const ticketsData = useSelector((state: IState) => state.tickets.ticketsData);
   const isSorted = useSelector((state: IState) => state.tickets.isSorted);
   const isFiltered = useSelector((state: IState) => state.tickets.isFiltered);
@@ -32,7 +32,7 @@ export const Tickets = () => {
   );
 
   useEffect(() => {
-    dispatch(getTickets());
+    dispatch(ticketFetchRequested());
   }, [dispatch]);
 
   // AddTicket
@@ -59,7 +59,7 @@ export const Tickets = () => {
 
   const handleSave = () => {
     setIsModalOpen(false);
-    dispatch(clearSorted());
+    dispatch(clearTicketSorted());
     dispatch(clearTicketFilter());
   };
 
@@ -83,8 +83,8 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                dispatch(filterData(TICKET_PRIORITY_TYPE.LOW));
-                dispatch(setIsFiltered(true));
+                dispatch(filterTicketData(TICKET_PRIORITY_TYPE.LOW));
+                dispatch(setTicketIsFiltered(true));
               }}
             >
               Low
@@ -96,8 +96,8 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                dispatch(filterData(TICKET_PRIORITY_TYPE.NORMAL));
-                dispatch(setIsFiltered(true));
+                dispatch(filterTicketData(TICKET_PRIORITY_TYPE.NORMAL));
+                dispatch(setTicketIsFiltered(true));
               }}
             >
               Normal
@@ -109,8 +109,8 @@ export const Tickets = () => {
           label: (
             <button
               onClick={() => {
-                dispatch(filterData(TICKET_PRIORITY_TYPE.HIGH));
-                dispatch(setIsFiltered(true));
+                dispatch(filterTicketData(TICKET_PRIORITY_TYPE.HIGH));
+                dispatch(setTicketIsFiltered(true));
               }}
             >
               High
@@ -153,7 +153,7 @@ export const Tickets = () => {
             {isFiltered ? (
               <button
                 onClick={() => {
-                  dispatch(setIsFiltered(false));
+                  dispatch(setTicketIsFiltered(false));
                   dispatch(clearTicketFilter());
                 }}
                 style={{
@@ -170,7 +170,7 @@ export const Tickets = () => {
               <button
                 onClick={() => {
                   dispatch(setSortIconColor(false));
-                  dispatch(clearSorted());
+                  dispatch(clearTicketSorted());
                 }}
                 style={{
                   backgroundColor: "#C5C7CD",

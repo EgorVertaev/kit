@@ -1,5 +1,6 @@
 import { IContactInitialState} from "../../types/types";
-import { ADD_CONTACT, CLEAR_CONTACT_FILTER, CLEAR_SORTED, ContactActionsType, DELETE_CONTACT, FILTER_CONTACT_DATA, SET_CONTACTS, SET_CONTACT_SORT_ICON_COLOR, SET_IS_FILTERED_DATA, SORT_CONTACT_FROM_A_TO_Z, SORT_CONTACT_FROM_Z_TO_A } from "../actionCreators";
+import { ADD_CONTACT, CLEAR_CONTACT_FILTER, CLEAR_SORTED, DELETE_CONTACT, FILTER_CONTACT_DATA, SET_CONTACTS, SET_CONTACT_SORT_ICON_COLOR, SET_IS_FILTERED_DATA, SORT_CONTACT_FROM_A_TO_Z, SORT_CONTACT_FROM_Z_TO_A } from "./contactActions";
+import { ContactActionsType } from "./types";
 
 
 
@@ -81,7 +82,7 @@ const contactReducer = (state = initialState, action: ContactActionsType) => {
     case SET_CONTACT_SORT_ICON_COLOR: {
       return {
         ...state,
-        isSortedIconColor: action.payload,
+        isSortedIconColor: action.payload.value,
       };
     }
 
@@ -104,7 +105,7 @@ const contactReducer = (state = initialState, action: ContactActionsType) => {
     case SET_IS_FILTERED_DATA: {
       return {
         ...state,
-        isFiltered: action.payload,
+        isFiltered: action.payload.value,
       };
     }
 

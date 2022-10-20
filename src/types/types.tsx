@@ -29,7 +29,7 @@ export interface IPaginationUseState {
 }
 
 export interface IState {
-  contacts: IContactInitialState
+  contacts: IContactInitialState;
   auth: IAuthInitialState;
   user: IuserInitialState;
   tickets: IticketInitialState;
@@ -44,20 +44,21 @@ export interface IContactInitialState {
 
 export interface Iuser {
   firstName: string;
-    lastName: string;
-    email: string;
-    adress: string;
-    image: string;
+  lastName: string;
+  email: string;
+  adress: string;
+  image: string;
 }
 
 export interface IuserInitialState {
-  user: Iuser
+  user: Iuser;
 }
 
 export interface IAuthInitialState {
   login: string;
   password: string;
   isAuth: boolean;
+  error: string;
 }
 
 export interface IticketInitialState {

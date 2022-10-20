@@ -3,7 +3,6 @@ import { Layout } from "./routes/Layout";
 import { Routes, Route } from "react-router-dom";
 import { Contacts } from "./screens/Contacts/Contacts";
 import { Overview } from "./screens/Overview/Overview";
-import { SettingsContainer } from "./screens/Settings/SettingsContainer";
 import Wrapper from "./components/Wrapper/Wrapper";
 import { RequireAuth } from "./hoc/RequireAuth";
 import { ForgotPass } from "./screens/ForgotPass/ForgotPass";
@@ -12,6 +11,7 @@ import { ResetPass } from "./screens/ResetPass/ResetPass";
 import { SignUp } from "./screens/SignUp/SignUp";
 import { ROUTES } from "./routes/Routes";
 import { Tickets } from "./screens/Tickets/Tickets";
+import { Settings } from "./screens/Settings/Settings";
 
 function App() {
   return (
@@ -53,7 +53,7 @@ function App() {
             path={ROUTES.SETTINGS}
             element={
               <RequireAuth>
-                <SettingsContainer />
+                <Settings />
               </RequireAuth>
             }
           />

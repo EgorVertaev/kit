@@ -3,7 +3,7 @@ import "./Header.scss";
 import { Dropdown, Menu } from "antd";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../../redux/actionCreators";
+import { logOut } from "../../redux/Auth/authActions";
 
 interface IHeaderProps {
   title: string;

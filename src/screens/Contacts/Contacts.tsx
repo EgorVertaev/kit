@@ -18,9 +18,8 @@ import {
   filterData,
   setIsFiltered,
   clearFilter,
-} from "../../redux/actionCreators";
-
-import { getContacts } from '../../redux/thunks'
+  contactsFetchRequested,
+} from "../../redux/Contacts/contactActions";
 
 export const Contacts = () => {
   const dispatch = useDispatch();
@@ -32,8 +31,7 @@ export const Contacts = () => {
   );
 
   useEffect(() => {
-    // @ts-ignore
-    dispatch(getContacts());
+    dispatch(contactsFetchRequested());
   }, [dispatch]);
 
   const [pagination, setPagination] = useState<IPaginationUseState>({

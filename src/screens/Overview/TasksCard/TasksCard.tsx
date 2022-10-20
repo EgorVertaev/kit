@@ -1,5 +1,5 @@
-import React from "react";
-import { Card } from "antd";
+import React, { useState } from "react";
+import { Card, Radio, RadioChangeEvent } from "antd";
 import { Bage } from "../../../components/Bage/Bage";
 import { AddIcon } from "../../../components/Icons/Icon";
 import "./TasksCard.scss";
@@ -14,6 +14,12 @@ const TasksTitle = () => {
 };
 
 export const TasksCard = () => {
+
+  const [value, setValue] = useState(1);
+  const onChange = (e: RadioChangeEvent) => {
+    setValue(e.target.value);
+  };
+
   return (
     <Card
       title={<TasksTitle />}
@@ -30,44 +36,42 @@ export const TasksCard = () => {
             <AddIcon />
           </button>
         </div>
-
-        <ul className="tasks__list">
-          <li className="tasks__item">
-            <div className="tasks__inner">
-              <input
-                type={"radio"}
-                style={{ marginRight: "20px" }}
-                name="creacte-task"
-              />
-              <label className="tasks__label">Finish ticket update</label>
-            </div>
-            <Bage color={"#ffffff"} bgColor={"#FEC400"} text={"urgant"} />
-          </li>
-          <li className="tasks__item">
-            <div className="tasks__inner">
-              <input
-                type={"radio"}
-                style={{ marginRight: "20px" }}
-                name="creacte-task"
-              />
-              <label className="tasks__label">Create new ticket example</label>
-            </div>
-            <Bage color={"#ffffff"} bgColor={"#29CC97"} text={"new"} />
-          </li>
-          <li className="tasks__item">
-            <div className="tasks__inner">
-              <input
-                type={"radio"}
-                style={{ marginRight: "20px" }}
-                name="creacte-task"
-              />
-              <label className="tasks__label">Update ticket report</label>
-            </div>
-            <div className="tasks__bage">
-              <Bage color={"#9FA2B4"} bgColor={"#F0F1F7"} text={"default"} />
-            </div>
-          </li>
-        </ul>
+        <Radio.Group onChange={onChange} value={value}>
+          <ul className="tasks__list">
+            <li className="tasks__item">
+              <div className="tasks__inner">
+                <Radio
+                  value={2}
+                  style={{ marginRight: "20px" }}
+                />
+                <label className="tasks__label">Finish ticket update</label>
+              </div>
+              <Bage color={"#ffffff"} bgColor={"#FEC400"} text={"urgant"} />
+            </li>
+            <li className="tasks__item">
+              <div className="tasks__inner">
+                <Radio
+                  value={3}
+                  style={{ marginRight: "20px" }}
+                />
+                <label className="tasks__label">Create new ticket example</label>
+              </div>
+              <Bage color={"#ffffff"} bgColor={"#29CC97"} text={"new"} />
+            </li>
+            <li className="tasks__item">
+              <div className="tasks__inner">
+                <Radio
+                  value={1}
+                  style={{ marginRight: "20px" }}
+                />
+                <label className="tasks__label">Update ticket report</label>
+              </div>
+              <div className="tasks__bage">
+                <Bage color={"#9FA2B4"} bgColor={"#F0F1F7"} text={"default"} />
+              </div>
+            </li>
+          </ul>
+        </Radio.Group>
       </form>
     </Card>
   );

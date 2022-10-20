@@ -1,8 +1,15 @@
-.login__form {
-  width: 100%;
-}
+.login {
+  
+  &__error {
+    color: red;
+  }
 
-.login__btn {
-  margin-bottom: 32px;
+  &__btn {
+    margin-bottom: 32px;
+  }
+
+  &__form {
+    width: 100%;
+  }
 }
  
